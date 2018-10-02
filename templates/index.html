@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div id="channels">
+        La liste des chans
+    </div>
+    <div id="chat">
+        <ul id="messages">
+            {% for message in messages %}
+                <li>{{ message.username }} ({{ message.timestamp | format_date}}): {{ message.message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="input">
+        <input type="text" name="text" id="text" autocomplete="off" placeholder="Enter your message"></textarea>
+    </div>
+{% endblock %}
