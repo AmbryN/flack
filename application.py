@@ -10,7 +10,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
 channels = []
-messages = []
+id = 0
 
 @app.template_filter('format_date')
 def _jinja2_filter_datetime(timestamp):
@@ -19,18 +19,25 @@ def _jinja2_filter_datetime(timestamp):
 
 @app.route("/")
 def index():
-    return render_template("index.html", messages=messages)
-
-# When a user joins the chat
-@socketio.on('connected')
-def connection(data):
-    username = data["username"]
-    emit("announce connection", {'username': username}, broadcast=True)
+    return render_template("index.html", channels=channels)
 
 # When a message is sent by a user
 @socketio.on('send message')
 def message(data):   
     message_data = {'message': data["message"], 'username': data["username"], "timestamp": data['timestamp']}
-    messages.append(message_data)
-    emit("get message", message_data, broadcast=True)
+    channels[int(data['channel'])]["messages"].append(message_data)
+    emit("get message", {"channel": int(data['channel']), "message": message_data}, broadcast=True)
 
+# When a new channel is created
+@socketio.on('create channel')
+def create(data):
+    global id
+    channel = {"id": id, "name": data["name"], "messages": []}
+    channels.append(channel)
+    emit("new channel", channels[id], broadcast=True)
+    id = id+1
+
+# When a user selects a channel
+@socketio.on('channel open')
+def channel_open(data):
+    emit("opened channel", channels[int(data["id"])]["messages"])

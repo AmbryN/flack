@@ -2,7 +2,12 @@
 
 {% block body %}
     <div id="channels">
-        La liste des chans
+        <ul id="list-channels">
+            {% for channel in channels %}
+                <li class="channel" data-id="{{ channel.id }}">{{ channel.name }}</li>
+            {% endfor %}
+        </ul>
+        <button id="create-channel">Create a new channel</button>
     </div>
     <div id="chat">
         <ul id="messages">

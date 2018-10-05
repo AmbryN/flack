@@ -37,7 +37,9 @@ nav a {
     height: 100%;
     grid-column: 1;
     grid-row: 2 / 4;
-    justify-items: end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #001942;
 }
 
@@ -55,6 +57,10 @@ nav a {
     overflow-x: auto;
     height: 550px;
     max-height: 550px;
+}
+
+#messages li {
+    list-style-type: none;
 }
 
 #input {

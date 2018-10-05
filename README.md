@@ -4,9 +4,11 @@ Real Time Chat using Socket.IO:
 * On client side : HTML, CSS3, Vanilla JS
 * On server side : Flask
 
-# Coming soon
-
+Supports :
+* Setting a display name and remembering it across sessions
 * Channel creation and selection
+* Sending messages to users in the same channel
+* Getting back into the last visited channel when opening the site
 
 ## Getting Started
 
@@ -14,6 +16,7 @@ Real Time Chat using Socket.IO:
 * Install the required packages with "pip install -r requirements.txt" 
 * Set the environment variable FLASK_APP to "application.py"
 * Start the server using "flask run"
+* Go to the url given by the server
 
 ## Built With
 
